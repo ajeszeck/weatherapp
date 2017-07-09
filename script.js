@@ -1,34 +1,39 @@
 const londonURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?lat=51.5074&lon=0.1278&APPID=5d0bfe5cb3340bdfed8acebf9b45ddfe&units=imperial"
 const seattleURL = "https://cors-anywhere.herokuapp.com/api.openweathermap.org/data/2.5/weather?lat=47.6762&lon=-122.3182&units=imperial&APPID=5d0bfe5cb3340bdfed8acebf9b45ddfe"
+const seattle = "Seattle"
+const london = "London"
 
 window.onload = function() {
 	console.log("linked")
 }
 
-function getSeattleWeather() {
+function getWeather(city) {
+	console.log(city)
 	document.getElementById("container").innerHTML = ""
-	console.log("clicked on Seattle")
+	console.log("clicked on " + city)
 	let h4 = document.createElement("h4")
-	h4.innerHTML = "Today in Seattle:"
+	h4.innerHTML = "Today in " + city + ":"
 	document.getElementById("container").appendChild(h4)
-	let request = new XMLHttpRequest()
-	request.open("GET", seattleURL, true)
-	request.onload = onLoadFunc
-	request.onerror = onerrorFunc
-	request.send()
+
+}
+
+function getSeattleWeather() {
+	getWeather(seattle)
+	callApi(seattleURL)
 }
 
 function getLondonWeather() {
-	document.getElementById("container").innerHTML = ""
-	console.log("clicked on Seattle")
-	let h4 = document.createElement("h4")
-	h4.innerHTML = "Today in London:"
-	document.getElementById("container").appendChild(h4)
+	getWeather(london)
+	callApi(londonURL)
+}
+
+function callApi(city) {
 	let request = new XMLHttpRequest()
-	request.open("GET", londonURL, true)
+	request.open("GET", city, true)
 	request.onload = onLoadFunc
 	request.onerror = onerrorFunc
 	request.send()
+	return request
 }
 
 function onLoadFunc() {
